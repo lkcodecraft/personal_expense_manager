@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_expense_report" model="ir.actions.report">
+            <field name="name">Expense Report</field>
+            <field name="model">personal.expense</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">personal_expense_manager.expense_report_template</field>
+            <field name="report_file">personal_expense_manager.expense_report_template</field>
+            <field name="print_report_name">'Expense Report - %s' % (object.date)</field>
+            <field name="binding_model_id" ref="model_personal_expense"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo> 

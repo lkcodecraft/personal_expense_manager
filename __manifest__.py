@@ -1,0 +1,21 @@
+{
+    'name': 'Personal Expense Manager',
+    'version': '12.0.1.0.0',
+    'category': 'Accounting',
+    'summary': 'Track your personal expenses by category, date, and amount.',
+    'author': 'Your Name',
+    'depends': ['base', 'mail'],
+    'data': [
+        'security/expense_security.xml',
+        'security/ir.model.access.csv',
+        'views/expense_category_views.xml',
+        'views/expense_views.xml',
+        'views/menu.xml',
+        'reports/expense_report.xml',
+        'reports/expense_report_templates.xml',
+        'data/demo_expenses.xml',
+    ],
+    'demo': ['data/demo_expenses.xml'],
+    'installable': True,
+    'application': True,
+} 

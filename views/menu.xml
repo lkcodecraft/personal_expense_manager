@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main menu -->
+        <menuitem id="menu_expense_root" name="Expenses" 
+            web_icon="personal_expense_manager,static/description/icon.png" 
+            sequence="30"/>
+
+        <!-- Sub menus -->
+        <menuitem id="menu_expense" name="Expenses" 
+            parent="menu_expense_root" 
+            action="action_expense" 
+            sequence="10"/>
+
+        <menuitem id="menu_expense_category" name="Categories" 
+            parent="menu_expense_root" 
+            action="action_expense_category" 
+            sequence="20"/>
+    </data>
+</odoo> 

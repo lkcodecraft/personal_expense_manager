@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Categories -->
+        <record id="expense_category_food" model="personal.expense.category">
+            <field name="name">Food</field>
+            <field name="description">Food and dining expenses</field>
+        </record>
+
+        <record id="expense_category_transport" model="personal.expense.category">
+            <field name="name">Transport</field>
+            <field name="description">Transportation expenses</field>
+        </record>
+
+        <record id="expense_category_utilities" model="personal.expense.category">
+            <field name="name">Utilities</field>
+            <field name="description">Utilities such as electricity, water, internet</field>
+        </record>
+
+        <!-- Demo Expenses -->
+        <record id="expense_demo_1" model="personal.expense">
+            <field name="date" eval="(datetime.now() - timedelta(days=5)).strftime('%Y-%m-%d')"/>
+            <field name="category_id" ref="expense_category_food"/>
+            <field name="amount">25.50</field>
+            <field name="description">Lunch with colleagues</field>
+            <field name="paid">True</field>
+        </record>
+
+        <record id="expense_demo_2" model="personal.expense">
+            <field name="date" eval="(datetime.now() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+            <field name="category_id" ref="expense_category_transport"/>
+            <field name="amount">15.00</field>
+            <field name="description">Taxi fare</field>
+            <field name="paid">True</field>
+        </record>
+
+        <record id="expense_demo_3" model="personal.expense">
+            <field name="date" eval="datetime.now().strftime('%Y-%m-%d')"/>
+            <field name="category_id" ref="expense_category_food"/>
+            <field name="amount">34.75</field>
+            <field name="description">Grocery shopping</field>
+            <field name="paid">False</field>
+        </record>
+
+        <record id="expense_demo_4" model="personal.expense">
+            <field name="date" eval="(datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+            <field name="category_id" ref="expense_category_utilities"/>
+            <field name="amount">60.00</field>
+            <field name="description">Internet bill</field>
+            <field name="paid">False</field>
+        </record>
+    </data>
+</odoo> 

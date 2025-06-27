@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_expense_tree" model="ir.ui.view">
+            <field name="name">personal.expense.tree</field>
+            <field name="model">personal.expense</field>
+            <field name="arch" type="xml">
+                <tree string="Expenses" decoration-success="paid == True" decoration-danger="paid == False">
+                    <field name="date"/>
+                    <field name="category_id"/>
+                    <field name="description"/>
+                    <field name="amount" sum="Total"/>
+                    <field name="paid"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_expense_form" model="ir.ui.view">
+            <field name="name">personal.expense.form</field>
+            <field name="model">personal.expense</field>
+            <field name="arch" type="xml">
+                <form string="Expense">
+                    <header>
+                        <button name="mark_as_paid" string="Mark as Paid" type="object" 
+                            attrs="{'invisible': [('paid', '=', True)]}" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                                <field name="category_id"/>
+                                <field name="paid"/>
+                            </group>
+                            <group>
+                                <field name="amount"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_expense_search" model="ir.ui.view">
+            <field name="name">personal.expense.search</field>
+            <field name="model">personal.expense</field>
+            <field name="arch" type="xml">
+                <search string="Search Expenses">
+                    <field name="category_id"/>
+                    <field name="description"/>
+                    <filter name="paid" string="Paid" domain="[('paid', '=', True)]"/>
+                    <filter name="unpaid" string="Unpaid" domain="[('paid', '=', False)]"/>
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_category" string="Category" context="{'group_by': 'category_id'}"/>
+                        <filter name="group_by_month" string="Month" context="{'group_by': 'date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_expense" model="ir.actions.act_window">
+            <field name="name">Expenses</field>
+            <field name="res_model">personal.expense</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first expense!
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo> 

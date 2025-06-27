@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="expense_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Expense Report</h2>
+                    
+                    <!-- Group expenses by category -->
+                    <t t-set="categories" t-value="docs.mapped('category_id')"/>
+                    <t t-foreach="categories" t-as="category">
+                        <h3><t t-esc="category.name"/></h3>
+                        
+                        <!-- Filter expenses by category -->
+                        <t t-set="category_expenses" t-value="docs.filtered(lambda e: e.category_id.id == category.id)"/>
+                        
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th class="text-right">Amount</th>
+                                    <th>Paid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="category_expenses" t-as="expense">
+                                    <tr>
+                                        <td><t t-esc="expense.date" t-options="{'widget': 'date'}"/></td>
+                                        <td><t t-esc="expense.description or ''"/></td>
+                                        <td class="text-right">
+                                            <span t-field="expense.amount" t-options='{"widget": "monetary"}'/>
+                                        </td>
+                                        <td><t t-if="expense.paid">✓</t></td>
+                                    </tr>
+                                </t>
+                                <tr class="border-top">
+                                    <td colspan="2" class="text-right"><strong>Total:</strong></td>
+                                    <td class="text-right">
+                                        <strong><span t-esc="sum(category_expenses.mapped('amount'))" t-options='{"widget": "monetary"}'/></strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+
+                    <!-- Grand Total -->
+                    <div class="row mt32 mb32">
+                        <div class="col-6 offset-6">
+                            <table class="table table-sm">
+                                <tr class="border-black">
+                                    <td><strong>Grand Total</strong></td>
+                                    <td class="text-right">
+                                        <strong><span t-esc="sum(docs.mapped('amount'))" t-options='{"widget": "monetary"}'/></strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Paid Expenses</td>
+                                    <td class="text-right">
+                                        <span t-esc="sum(docs.filtered(lambda e: e.paid).mapped('amount'))" t-options='{"widget": "monetary"}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Unpaid Expenses</td>
+                                    <td class="text-right">
+                                        <span t-esc="sum(docs.filtered(lambda e: not e.paid).mapped('amount'))" t-options='{"widget": "monetary"}'/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo> 
